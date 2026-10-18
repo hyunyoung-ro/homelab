@@ -1,0 +1,10 @@
+{
+	admin off
+}
+:8080 {
+	root * /srv
+	encode zstd gzip
+	respond /healthz "{env.NODE_NAME} {env.GIT_SHA}" 200
+	file_server
+	header -Server
+}

@@ -1,0 +1,85 @@
+{{ $p := site.Params.portfolio }}
+<div class="pf">
+  <section class="pf-hero">
+    <h1 class="pf-name">{{ $p.name }}</h1>
+    <p class="pf-headline">{{ $p.headline }}</p>
+    <p class="pf-sub">{{ $p.sub }}</p>
+    <div class="pf-actions">
+      <a class="pf-btn pf-btn-primary" href="{{ "resume.pdf" | relURL }}">이력서 PDF</a>
+      <a class="pf-btn" href="mailto:{{ $p.email }}">이메일</a>
+      {{ with $p.github }}<a class="pf-btn" href="{{ . }}">GitHub</a>{{ end }}
+    </div>
+  </section>
+
+  <section class="pf-section">
+    <h2>기술 스택</h2>
+    <div class="pf-stack">
+      {{ range $p.stack }}
+      <div>
+        <h3>{{ .area }}</h3>
+        <ul class="pf-badges">{{ range .items }}<li>{{ . }}</li>{{ end }}</ul>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  {{ with (where site.RegularPages "Section" "projects").ByWeight }}
+  <section class="pf-section">
+    <h2>프로젝트</h2>
+    <div class="pf-cards">
+      {{ range . }}
+      <a class="pf-card" href="{{ .RelPermalink }}">
+        {{ with .Resources.GetMatch "feature*" }}
+          {{ with .Fill "640x360 Center webp" }}
+          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="" loading="lazy">
+          {{ end }}
+        {{ end }}
+        <div class="pf-card-body">
+          <h3>{{ .Title }}</h3>
+          <p>{{ .Summary | plainify | truncate 90 }}</p>
+          {{ with .Params.stack }}<ul class="pf-badges">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <section class="pf-section">
+    <h2>주요 경력</h2>
+    {{ with $p.career_note }}<p class="pf-note">{{ . }}</p>{{ end }}
+    <ol class="pf-timeline">
+      {{ range $p.career }}
+      <li><span class="pf-period">{{ .period }}</span>
+        <div><strong>{{ .title }}</strong>{{ with .org }} · {{ . }}{{ end }}
+        {{ with .desc }}<p>{{ . }}</p>{{ end }}</div></li>
+      {{ end }}
+    </ol>
+  </section>
+
+  <section class="pf-section">
+    <h2>학력</h2>
+    <ol class="pf-timeline">
+      {{ range $p.education }}
+      <li><span class="pf-period">{{ .period }}</span>
+        <div><strong>{{ .title }}</strong>{{ with .org }} · {{ . }}{{ end }}</div></li>
+      {{ end }}
+    </ol>
+  </section>
+
+  {{ with $p.certification }}
+  <section class="pf-section">
+    <h2>자격</h2>
+    <ul class="pf-certs">
+      {{ range . }}
+      <li><strong>{{ .title }}</strong>{{ with .comment }}<p>{{ . }}</p>{{ end }}</li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  <section class="pf-section">
+    <h2>연락처</h2>
+    <p><a href="mailto:{{ $p.email }}">{{ $p.email }}</a></p>
+  </section>
+</div>

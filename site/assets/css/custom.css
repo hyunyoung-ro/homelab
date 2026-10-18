@@ -1,0 +1,78 @@
+body { font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; word-break: keep-all; }
+
+.pf { max-width: 64rem; margin: 0 auto; }
+.pf-hero { padding: 4rem 0 3rem; }
+.pf-name { font-size: clamp(2.25rem, 5vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+.pf-headline { font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 600; margin: 1rem 0 .5rem; }
+.pf-sub { color: rgb(var(--color-neutral-500)); margin: 0 0 2rem; }
+
+.pf-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.pf-btn { padding: .6rem 1.1rem; border-radius: .6rem; font-weight: 600;
+  border: 1px solid rgb(var(--color-neutral-300)); text-decoration: none !important; }
+.pf-btn-primary { background: rgb(var(--color-primary-600)); border-color: transparent; color: #fff !important; }
+.dark .pf-btn { border-color: rgb(var(--color-neutral-700)); }
+
+.pf-section { padding: 2.5rem 0; border-top: 1px solid rgb(var(--color-neutral-200)); }
+.dark .pf-section { border-color: rgb(var(--color-neutral-800)); }
+.pf-section h2 { font-size: 1.5rem; font-weight: 700; margin: 0 0 1.5rem; }
+.pf-note { margin: -0.75rem 0 1.25rem; color: rgb(var(--color-neutral-500)); font-size: .95rem; }
+
+.pf-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; }
+.pf-stack h3 { font-size: .9rem; font-weight: 600; color: rgb(var(--color-neutral-500)); margin: 0 0 .5rem; }
+.pf-badges { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 0; }
+.pf-badges li { margin: 0; font-size: .85rem; padding: .2rem .65rem; border-radius: 999px;
+  background: rgb(var(--color-primary-100)); color: rgb(var(--color-primary-800)); }
+.dark .pf-badges li { background: rgb(var(--color-primary-900)); color: rgb(var(--color-primary-200)); }
+
+.pf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 1.25rem; }
+.pf-card { display: block; overflow: hidden; border-radius: .9rem; text-decoration: none !important;
+  border: 1px solid rgb(var(--color-neutral-200)); transition: transform .15s, box-shadow .15s; }
+.dark .pf-card { border-color: rgb(var(--color-neutral-800)); }
+.pf-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgb(0 0 0 / .08); }
+.pf-card img { display: block; width: 100%; height: auto; margin: 0; }
+.pf-card-body { padding: 1rem 1.1rem 1.2rem; }
+.pf-card h3 { margin: 0 0 .4rem; font-size: 1.1rem; font-weight: 700; }
+.pf-card p { margin: 0 0 .8rem; font-size: .95rem; color: rgb(var(--color-neutral-500)); }
+
+.pf-timeline, .pf-certs { list-style: none; padding: 0; margin: 0; }
+.pf-timeline li { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; margin: 0; padding: .9rem 0;
+  border-bottom: 1px dashed rgb(var(--color-neutral-200)); }
+.pf-certs li { margin: 0; padding: .9rem 0; border-bottom: 1px dashed rgb(var(--color-neutral-200)); }
+.dark .pf-timeline li, .dark .pf-certs li { border-color: rgb(var(--color-neutral-800)); }
+.pf-period { color: rgb(var(--color-neutral-500)); font-variant-numeric: tabular-nums; }
+.pf-timeline p, .pf-certs p { margin: .25rem 0 0; color: rgb(var(--color-neutral-500)); }
+
+@media (max-width: 640px) {
+  .pf-timeline li { grid-template-columns: 1fr; gap: .25rem; }
+}
+
+/* prose 여백 무력화 */
+.pf .pf-badges li,
+.pf .pf-timeline li,
+.pf .pf-certs li { margin: 0 !important; }
+.pf .pf-badges li { line-height: 1.5; }
+
+/* 배지: 스킴과 무관하게 보이도록 투명도 기반 */
+.pf .pf-badges li {
+  background: rgba(var(--color-primary-500), .10);
+  border: 1px solid rgba(var(--color-primary-500), .25);
+  color: rgb(var(--color-primary-700));
+}
+.dark .pf .pf-badges li {
+  background: rgba(var(--color-primary-400), .15);
+  border-color: rgba(var(--color-primary-400), .30);
+  color: rgb(var(--color-primary-200));
+}
+
+/* 마지막 항목 점선 제거 → 이중선 해소 */
+.pf .pf-timeline li:last-child,
+.pf .pf-certs li:last-child { border-bottom: none; }
+
+/* 히어로: 이름과 헤드라인 사이 간격 */
+.pf .pf-headline { margin-top: 1.25rem !important; }
+
+.pf .pf-name { line-height: 1.2 !important; }
+@media (max-width: 640px) {
+  .pf .pf-name { font-size: 2rem; }
+  .pf-hero { padding: 2.5rem 0 2rem; }
+}

@@ -1,0 +1,19 @@
+FROM --platform=$BUILDPLATFORM docker.io/library/debian:bookworm-slim AS build
+# 로컬 `hugo version`과 맞춰 고정
+ARG HUGO_VERSION=0.167.0
+ARG BUILDARCH
+ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-${BUILDARCH}.tar.gz /tmp/hugo.tgz
+RUN tar -xzf /tmp/hugo.tgz -C /usr/local/bin hugo
+WORKDIR /src
+COPY . .
+RUN hugo --minify --gc
+
+FROM docker.io/library/caddy:2-alpine
+ARG GIT_SHA=dev
+ENV GIT_SHA=${GIT_SHA} NODE_NAME=unknown
+COPY Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /src/public /srv
+
+FROM docker.io/library/caddy:2-alpine
+LABEL org.opencontainers.image.source="https://github.com/hyunyoung-ro/homelab"
+ARG GIT_SHA=dev
